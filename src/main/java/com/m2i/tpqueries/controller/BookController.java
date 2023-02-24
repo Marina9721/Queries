@@ -74,4 +74,9 @@ public class BookController {
 	public Page<Book> getAll(@PathVariable("page") int page, @PathVariable("size") int size){
 		return service.findAllWithPagination(page,size);
 	}
+	
+	@GetMapping("/sales/{quantity}")
+	public List<Book> getBestSales(@PathVariable int quantity){
+		return repo.findBySalesGreaterThan(quantity);
+	}
 }

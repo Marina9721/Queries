@@ -11,10 +11,15 @@ import com.m2i.tpqueries.entity.Book;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
-	//1. Renvoie le nom de tous les livres de cette edition
+	//1. http://localhost:8080/book/edition/{nameEdition} Renvoie le nom de tous les livres de cette edition
 	@Query(value="SELECT b.title FROM Book b WHERE b.edition=?1")
 	List<String> findTitleByEdition(String edition);
+	// Tout le livre
+	//List<Book> findAllByEdition();
 	
-	// 4. Renvoie les livres avec une pagination et triés par titre
+	// 4. http://localhost:8080/book/all/{page}/{size} Renvoie les livres avec une pagination et triés par titre
 	Page<Book> findAll(Pageable p);
+	
+	// 6. localhost:8080/book/vente/{quantity} -> Renvoie tous les livres ayant plus de 'quantity' ventes
+	List<Book> findBySalesGreaterThan(int quantity);
 }

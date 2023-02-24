@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.javafaker.Faker;
 import com.m2i.tpqueries.entity.Author;
 import com.m2i.tpqueries.entity.Book;
+import com.m2i.tpqueries.model.AuthorNameAndTitle;
 import com.m2i.tpqueries.repository.AuthorRepository;
 import com.m2i.tpqueries.repository.BookRepository;
 import com.m2i.tpqueries.service.AuthorService;
@@ -93,5 +94,20 @@ public class AuthorController {
 	@GetMapping("/{name}/sales")
 	public int getTotalSalesByAuthor(@PathVariable String name) {
 		return aRepo.getSalesCountByAuthor(name);
+	}
+	
+	@GetMapping("/{name}/nbBooks")
+	public int getTotalBooksByAuthor(@PathVariable String name) {
+		return aRepo.countBookByAuthor(name);
+	}
+	
+	@GetMapping("/{nameAuthor}/list")
+	public List<String> find(@PathVariable String nameAuthor) {
+		return aRepo.findAllTitleByAuthor(nameAuthor);
+	}
+	
+	@GetMapping("/allbooks")
+	public List<AuthorNameAndTitle> getAllBooksByAuthor(){
+		return aRepo.getAuthorNameAndTitleList();
 	}
 }
